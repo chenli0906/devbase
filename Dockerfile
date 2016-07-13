@@ -1,9 +1,9 @@
 # Version 0.0.1
 FROM ubuntu:latest
-MAINTAINER Leo Chen 
+MAINTAINER Leo Chen "C_L_0312@qq.com"
 
 # use mirrors of china
-RUN cp /etc/apt/sources.list /etc/apt/sources.list_backup && \
+RUN sed -i 's/archive.ubuntu.com/cn.archive.ubuntu.com/g' /etc/apt/sources.list && \
 cp /etc/apt/sources.list /etc/apt/sources.list.d/
 COPY ./cn_sources.list /etc/apt/sources.list
 
@@ -31,3 +31,9 @@ ADD dependency/sbt-0.13.7.tgz /usr/local
 ENV SBT_HOME=/usr/local/sbt
 
 ENV PATH $PATH:$JAVA_HOME/bin:$SCALA_HOME/bin:$SBT_HOME/bin
+
+# add UTF8 character set
+RUN locale-gen en_US.UTF-8
+ENV LC_CTYPE="en_US.UTF-8"
+
+
